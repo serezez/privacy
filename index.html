@@ -2,66 +2,798 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Политика конфиденциальности — [Название приложения]</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Политика конфиденциальности — SOS Dates (SOSвидания)</title>
     <style>
-        body { font-family: sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 0 20px; color: #333; }
-        h1 { color: #000; }
+        /* ============================================================================
+           CSS VARIABLES & RESET
+           ============================================================================ */
+        :root {
+            /* Colors */
+            --color-bg: #FFFFFF;
+            --color-text: #1D1D1F;
+            --color-text-secondary: #86868B;
+            --color-primary: #0071E3;
+            --color-primary-hover: #0077ED;
+            --color-border: #D2D2D7;
+            --color-callout-bg: #F5F5F7;
+            --color-callout-border: #D2D2D7;
+            
+            /* Typography */
+            --font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+            --font-size-base: 17px;
+            --line-height: 1.6;
+            
+            /* Spacing */
+            --max-width: 800px;
+            --section-spacing: 48px;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ============================================================================
+           BASE STYLES
+           ============================================================================ */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-family);
+            font-size: var(--font-size-base);
+            line-height: var(--line-height);
+            color: var(--color-text);
+            background-color: var(--color-bg);
+            padding: 0;
+        }
+
+        /* ============================================================================
+           LAYOUT
+           ============================================================================ */
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 24px;
+            gap: 60px;
+        }
+
+        /* Sidebar (Table of Contents) */
+        .sidebar {
+            position: sticky;
+            top: 60px;
+            width: 280px;
+            flex-shrink: 0;
+            height: fit-content;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            max-width: var(--max-width);
+        }
+
+        /* ============================================================================
+           TYPOGRAPHY
+           ============================================================================ */
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            color: var(--color-text);
+        }
+
+        h2 {
+            font-size: 32px;
+            font-weight: 600;
+            letter-spacing: -0.015em;
+            margin-top: var(--section-spacing);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-top: 32px;
+            margin-bottom: 16px;
+        }
+
+        h4 {
+            font-size: 19px;
+            font-weight: 600;
+            margin-top: 24px;
+            margin-bottom: 12px;
+        }
+
+        p {
+            margin-bottom: 16px;
+            color: var(--color-text);
+        }
+
+        ul, ol {
+            margin-bottom: 16px;
+            padding-left: 24px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        a {
+            color: var(--color-primary);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: var(--color-primary-hover);
+            text-decoration: underline;
+        }
+
+        /* ============================================================================
+           TABLE OF CONTENTS
+           ============================================================================ */
+        .toc {
+            background: var(--color-bg);
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-border);
+        }
+
+        .toc-title {
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc-list li {
+            margin: 0;
+        }
+
+        .toc-list a {
+            display: block;
+            padding: 8px 0;
+            font-size: 15px;
+            color: var(--color-text);
+            border-left: 2px solid transparent;
+            padding-left: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .toc-list a:hover {
+            color: var(--color-primary);
+            border-left-color: var(--color-primary);
+            text-decoration: none;
+            background: var(--color-callout-bg);
+            margin-left: -12px;
+            padding-left: 12px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* ============================================================================
+           CALLOUT BOXES
+           ============================================================================ */
+        .callout {
+            background: var(--color-callout-bg);
+            border-left: 4px solid var(--color-primary);
+            padding: 20px 24px;
+            margin: 24px 0;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .callout-warning {
+            border-left-color: #FF9500;
+            background: #FFF8F0;
+        }
+
+        .callout-success {
+            border-left-color: #34C759;
+            background: #F0FFF4;
+        }
+
+        .callout-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* ============================================================================
+           TABLES
+           ============================================================================ */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+            font-size: 15px;
+            box-shadow: var(--shadow-sm);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 16px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        th {
+            background: var(--color-callout-bg);
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-text-secondary);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background: var(--color-callout-bg);
+        }
+
+        /* ============================================================================
+           HEADER
+           ============================================================================ */
+        .header {
+            background: var(--color-bg);
+            border-bottom: 1px solid var(--color-border);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: saturate(180%) blur(20px);
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-logo {
+            font-weight: 700;
+            font-size: 20px;
+            color: var(--color-text);
+        }
+
+        .header-date {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+        }
+
+        /* ============================================================================
+           FOOTER
+           ============================================================================ */
+        .footer {
+            background: var(--color-callout-bg);
+            padding: 48px 24px;
+            margin-top: 80px;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .footer-content {
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        .footer h3 {
+            margin-top: 0;
+        }
+
+        .contact-info {
+            background: var(--color-bg);
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .contact-icon {
+            width: 20px;
+            height: 20px;
+            color: var(--color-primary);
+        }
+
+        /* ============================================================================
+           RESPONSIVE DESIGN
+           ============================================================================ */
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+                padding: 40px 20px;
+                gap: 40px;
+            }
+
+            .sidebar {
+                position: static;
+                width: 100%;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            h2 {
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            body {
+                font-size: 16px;
+            }
+
+            .container {
+                padding: 24px 16px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            h2 {
+                font-size: 24px;
+                margin-top: 36px;
+            }
+
+            h3 {
+                font-size: 20px;
+            }
+
+            .toc {
+                padding: 16px;
+            }
+
+            .toc-list a {
+                font-size: 14px;
+                padding: 6px 0;
+            }
+
+            table {
+                font-size: 14px;
+            }
+
+            th, td {
+                padding: 12px 16px;
+            }
+
+            .callout {
+                padding: 16px;
+            }
+        }
+
+        /* ============================================================================
+           PRINT STYLES
+           ============================================================================ */
+        @media print {
+            .sidebar, .header, .footer {
+                display: none;
+            }
+
+            .container {
+                display: block;
+                padding: 0;
+            }
+
+            .main-content {
+                max-width: 100%;
+            }
+
+            body {
+                font-size: 12pt;
+                line-height: 1.5;
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>Политика конфиденциальности</h1>
-    <p>Последнее обновление: 26 марта 2026 г.</p>
-    
-    <!-- Сюда вставьте текст, который сгенерировал ИИ агент -->
-    Политика конфиденциальности
-Ниже представлен готовый текст для публикации в RuStore. Я оставил места для заполнения в квадратных скобках (например, [НАЗВАНИЕ ПРИЛОЖЕНИЯ]).
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="header-logo">SOS Dates (SOSвидания)</div>
+            <div class="header-date">Последнее обновление: 14 марта 2026 г.</div>
+        </div>
+    </header>
 
-ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ
-Дата вступления в силу: [ДД.ММ.ГГГГ]
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar with Table of Contents -->
+        <aside class="sidebar">
+            <nav class="toc">
+                <div class="toc-title">Содержание</div>
+                <ul class="toc-list">
+                    <li><a href="#section-1">1. Общие положения</a></li>
+                    <li><a href="#section-2">2. Какие данные мы собираем</a></li>
+                    <li><a href="#section-3">3. Сторонние сервисы</a></li>
+                    <li><a href="#section-4">4. Хранение данных</a></li>
+                    <li><a href="#section-5">5. Ваши права (GDPR/CCPA)</a></li>
+                    <li><a href="#section-6">6. Конфиденциальность детей</a></li>
+                    <li><a href="#section-7">7. Развлекательные цели</a></li>
+                    <li><a href="#section-8">8. Изменения в Политике</a></li>
+                    <li><a href="#section-9">9. Контакты</a></li>
+                </ul>
+            </nav>
+        </aside>
 
-1. Общие положения
-Настоящая Политика конфиденциальности (далее — «Политика») определяет порядок обработки и защиты персональных данных пользователей мобильного приложения [НАЗВАНИЕ ПРИЛОЖЕНИЯ] (далее — «Приложение»).
+        <!-- Main Content -->
+        <main class="main-content">
+            <h1>Политика конфиденциальности</h1>
+            <p style="color: var(--color-text-secondary); font-size: 18px;">
+                Дата вступления в силу: 14 марта 2026 г.
+            </p>
 
-Приложение разработано [ВАШЕ ФИО ИЛИ НАЗВАНИЕ КОМПАНИИ] (далее — «Разработчик») и представляет собой развлекательный симулятор звонка, позволяющий пользователю имитировать входящий вызов с настраиваемыми параметрами.
+            <!-- Section 1 -->
+            <section id="section-1">
+                <h2>1. Общие положения</h2>
+                <p>
+                    Настоящая Политика конфиденциальности (далее — «Политика») определяет порядок обработки и защиты персональных данных пользователей мобильного приложения <strong>SOS Dates (SOSвидания)</strong> (далее — «Приложение»).
+                </p>
+                <p>
+                    Приложение разработано <strong>SOS Dates Team</strong> (далее — «Разработчик») и представляет собой развлекательный симулятор звонка, позволяющий пользователю имитировать входящий вызов с настраиваемыми параметрами.
+                </p>
+                <p>
+                    Разработчик уважает права пользователей и стремится к соблюдению требований Федерального закона от 27.07.2006 № 152-ФЗ «О персональных данных» (далее — ФЗ-152), а также GDPR (для Европы) и CCPA (для США).
+                </p>
+            </section>
 
-Разработчик уважает права пользователей и стремится к соблюдению требований Федерального закона от 27.07.2006 № 152-ФЗ «О персональных данных» (далее — ФЗ-152).
+            <!-- Section 2 -->
+            <section id="section-2">
+                <h2>2. Какие данные мы собираем и зачем</h2>
+                
+                <h3>2.1 Информация, которую вы предоставляете</h3>
+                <p>Приложение позволяет создавать пользовательские профили для симулированных звонков (SOS-свидания). Следующая информация может храниться локально на вашем устройстве:</p>
+                <ul>
+                    <li><strong>Имя профиля:</strong> Имя контакта для симулированных звонков</li>
+                    <li><strong>Фото профиля:</strong> Изображение, выбранное из галереи устройства</li>
+                    <li><strong>Голосовое сообщение:</strong> Аудио, записанное с помощью микрофона устройства</li>
+                    <li><strong>Рингтон:</strong> Аудиофайл, выбранный из устройства</li>
+                </ul>
 
-2. Какие данные мы собираем и зачем
-Приложение запрашивает следующие разрешения на доступ к функциям и данным устройства:
+                <div class="callout callout-success">
+                    <div class="callout-title">
+                        <svg class="contact-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        Важно
+                    </div>
+                    <p style="margin: 0;">
+                        Все данные профиля хранятся <strong>только локально на вашем устройстве</strong> и <strong>никогда не передаются</strong> на наши серверы или третьим лицам.
+                    </p>
+                </div>
 
-Тип данных / Разрешение	Цель использования
-Микрофон	Для имитации записи разговора или голосового сопровождения во время симуляции звонка.
-Галерея / Файлы	Для выбора пользователем фотографии контакта, который будет отображаться на экране во время имитации звонка.
-Уведомления	Для отображения интерфейса входящего вызова, в том числе когда Приложение работает в фоновом режиме.
-Важно: Приложение не собирает, не хранит и не передаёт персональные данные пользователей на серверы Разработчика или третьих лиц. Все данные (настройки, выбранные изображения, аудиозаписи) обрабатываются исключительно локально на устройстве пользователя.
+                <h3>2.2 Автоматически собираемая информация</h3>
+                <p>При использовании Приложения SOS Dates следующая неперсонализированная информация может собираться автоматически:</p>
+                <ul>
+                    <li><strong>Информация об устройстве:</strong> Модель устройства, версия операционной системы, языковые настройки</li>
+                    <li><strong>Информация об использовании:</strong> Статистика использования Приложения, паттерны использования функций</li>
+                    <li><strong>Рекламный идентификатор:</strong> Уникальный идентификатор для рекламных целей (GAID для Android, IDFA для iOS)</li>
+                </ul>
 
-3. Монетизация и сторонние сервисы
-В Приложении может использоваться реклама через сервис Google AdMob. При показе рекламы AdMob может автоматически собирать и обрабатывать следующие данные:
+                <h3>2.3 Разрешения</h3>
+                <p>Приложение SOS Dates запрашивает следующие разрешения на вашем устройстве:</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Разрешение</th>
+                            <th>Цель</th>
+                            <th>Передача данных</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Микрофон</strong></td>
+                            <td>Запись голосовых сообщений для симулированных звонков</td>
+                            <td>❌ Нет — хранится только локально</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Камера/Галерея</strong></td>
+                            <td>Выбор фотографий для профилей контактов</td>
+                            <td>❌ Нет — хранится только локально</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Хранилище</strong></td>
+                            <td>Сохранение данных профиля и аудиофайлов</td>
+                            <td>❌ Нет — хранится только локально</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Вибрация</strong></td>
+                            <td>Тактильная обратная связь во время звонков</td>
+                            <td>❌ Нет передачи</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Уведомления</strong></td>
+                            <td>Отображение оповещений о входящих звонках</td>
+                            <td>❌ Нет передачи</td>
+                        </tr>
+                    </tbody>
+                </table>
 
-идентификатор устройства (Advertising ID);
-IP-адрес;
-информация о браузере и операционной системе.
-Данные собираются в обезличенной форме и используются исключительно для таргетирования рекламы. Обработка данных осуществляется в соответствии с Политикой конфиденциальности Google: https://policies.google.com/privacy
+                <div class="callout callout-warning">
+                    <div class="callout-title">
+                        <svg class="contact-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                        </svg>
+                        Важно
+                    </div>
+                    <p style="margin: 0;">
+                        Приложение SOS Dates <strong>не</strong> совершает реальные телефонные звонки и <strong>не</strong> получает доступ к вашему списку контактов или истории звонков.
+                    </p>
+                </div>
+            </section>
 
-4. Хранение и защита данных
-Все данные, с которыми работает Приложение, хранятся исключительно в локальном хранилище устройства пользователя. Разработчик не имеет доступа к этим данным и не осуществляет их передачу каким-либо третьим лицам.
+            <!-- Section 3 -->
+            <section id="section-3">
+                <h2>3. Сторонние сервисы и монетизация</h2>
+                <p>Приложение интегрирует сторонние рекламные SDK, которые могут собирать неперсонализированные данные:</p>
+                
+                <h3>3.1 Google AdMob</h3>
+                <p>Google AdMob может собирать и обрабатывать следующую информацию:</p>
+                <ul>
+                    <li>Рекламный идентификатор</li>
+                    <li>Идентификаторы устройства</li>
+                    <li>IP-адрес</li>
+                    <li>Данные об использовании Приложения (SOS Dates)</li>
+                </ul>
+                <p><strong>Политика конфиденциальности:</strong> <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">https://policies.google.com/privacy</a></p>
 
-Приложение не требует регистрации и не запрашивает у пользователя ввод персональных данных (ФИО, номер телефона, адрес электронной почты и т.п.).
+                <h3>3.2 Яндекс Мобильная Реклама (для РФ)</h3>
+                <p>Яндекс Мобильная Реклама может собирать и обрабатывать следующую информацию:</p>
+                <ul>
+                    <li>Рекламный идентификатор</li>
+                    <li>Информация об устройстве</li>
+                    <li>Сетевая информация</li>
+                </ul>
+                <p><strong>Политика конфиденциальности:</strong> <a href="https://yandex.ru/legal/confidential/" target="_blank" rel="noopener">https://yandex.ru/legal/confidential/</a></p>
 
-5. Права пользователя
-Пользователь имеет право:
+                <h3>3.3 Другие сторонние сервисы</h3>
+                <p>Приложение SOS Dates может использовать следующие сервисы, требующие определенных разрешений:</p>
+                <ul>
+                    <li><strong>Vibration API:</strong> Для тактильной обратной связи во время симулированных звонков</li>
+                    <li><strong>Local Notifications:</strong> Для уведомлений о звонках</li>
+                    <li><strong>Hive/SharedPreferences:</strong> Для локального хранения данных</li>
+                </ul>
 
-Отозвать согласие на обработку данных, удалив Приложение с устройства.
-Удалить данные, созданные в Приложении (настройки, загруженные изображения), через настройки устройства или удалив Приложение.
-Запретить доступ к разрешениям (микрофон, галерея, уведомления) через настройки операционной системы устройства.
-6. Изменения в Политике конфиденциальности
-Разработчик оставляет за собой право вносить изменения в настоящую Политику. Новая редакция вступает в силу с момента её публикации в магазине приложений RuStore, если иное не предусмотрено новой редакцией.
+                <div class="callout">
+                    <div class="callout-title">
+                        <svg class="contact-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        Информация
+                    </div>
+                    <p style="margin: 0;">
+                        Вы можете отключить персонализированную рекламу в настройках вашего устройства. Это не повлияет на количество показываемой рекламы, но сделает её менее релевантной.
+                    </p>
+                </div>
+            </section>
 
-7. Контакты
-По всем вопросам, связанным с обработкой данных и работой Приложения, вы можете обратиться к Разработчику:
+            <!-- Section 4 -->
+            <section id="section-4">
+                <h2>4. Хранение и безопасность данных</h2>
+                
+                <h3>4.1 Локальное хранение</h3>
+                <p>Весь созданный пользователем контент (профили, голосовые записи, фотографии) хранится <strong>исключительно на вашем устройстве</strong> с использованием:</p>
+                <ul>
+                    <li><strong>База данных Hive:</strong> Для структурированных данных профиля</li>
+                    <li><strong>Хранилище устройства:</strong> Для аудиозаписей и изображений</li>
+                </ul>
 
-Email: [ВАШ EMAIL]
-[Дополнительно: Telegram / Сайт / и т.д.]
+                <h3>4.2 Хранение данных</h3>
+                <p>Ваши данные хранятся:</p>
+                <ul>
+                    <li><strong>Данные профиля:</strong> До удаления профиля или удаления Приложения</li>
+                    <li><strong>Рекламные данные:</strong> Согласно политикам третьих сторон (Google, Яндекс)</li>
+                    <li><strong>Данные аналитики:</strong> Анонимизированы и агрегированы для статистических целей</li>
+                </ul>
 
+                <h3>4.3 Меры безопасности</h3>
+                <p>Мы внедряем соответствующие технические меры для защиты ваших данных:</p>
+                <ul>
+                    <li>Шифрование локальных данных, где применимо</li>
+                    <li>Отсутствие передачи личного контента на внешние серверы</li>
+                    <li>Регулярные обновления безопасности</li>
+                </ul>
+
+                <div class="callout callout-warning">
+                    <div class="callout-title">
+                        <svg class="contact-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        Срок хранения данных
+                    </div>
+                    <p style="margin: 0;">
+                        Данные хранятся на устройстве до момента удаления Приложения или очистки данных в настройках устройства. После удаления Приложения все данные удаляются безвозвратно.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Section 5 -->
+            <section id="section-5">
+                <h2>5. Ваши права</h2>
+                
+                <h3>5.1 Права пользователей (GDPR — для Европы)</h3>
+                <p>Если вы находитесь в Европейской экономической зоне (EEA), вы имеете следующие права:</p>
+                <ul>
+                    <li><strong>Право на доступ:</strong> Запросить доступ к вашим персональным данным</li>
+                    <li><strong>Право на исправление:</strong> Запросить исправление неточных данных</li>
+                    <li><strong>Право на удаление:</strong> Запросить удаление ваших данных («право на забвение»)</li>
+                    <li><strong>Право на ограничение обработки:</strong> Запросить ограничение обработки данных</li>
+                    <li><strong>Право на переносимость данных:</strong> Получить ваши данные в структурированном формате</li>
+                    <li><strong>Право на возражение:</strong> Возражать против обработки данных для рекламных целей</li>
+                    <li><strong>Право на отзыв согласия:</strong> Отозвать согласие в любое время</li>
+                </ul>
+
+                <h3>5.2 Права пользователей (CCPA — для Калифорнии, США)</h3>
+                <p>Если вы являетесь жителем Калифорнии, вы имеете следующие права:</p>
+                <ul>
+                    <li><strong>Право на знание:</strong> Узнать, какая личная информация собирается</li>
+                    <li><strong>Право на удаление:</strong> Запросить удаление личной информации</li>
+                    <li><strong>Право на отказ:</strong> Отказаться от продажи личной информации</li>
+                    <li><strong>Право на недискриминацию:</strong> Не подвергаться дискриминации за осуществление прав CCPA</li>
+                </ul>
+                <p><strong>Примечание:</strong> Мы <strong>не продаем</strong> личную информацию третьим лицам.</p>
+
+                <h3>5.3 Общие права всех пользователей</h3>
+                <ul>
+                    <li><strong>Отозвать согласие</strong> на обработку данных, удалив Приложение с устройства</li>
+                    <li><strong>Удалить данные</strong>, созданные в Приложении (настройки, загруженные изображения), через настройки устройства или удалив Приложение</li>
+                    <li><strong>Запретить доступ</strong> к разрешениям (микрофон, галерея, уведомления) через настройки операционной системы устройства</li>
+                </ul>
+            </section>
+
+            <!-- Section 6 -->
+            <section id="section-6">
+                <h2>6. Конфиденциальность детей</h2>
+                <p>Приложение <strong>не предназначено для детей младше 13 лет</strong>. Мы сознательно не собираем личную информацию от детей младше 13 лет.</p>
+                <p>Если мы обнаружим, что собрали информацию от ребенка младше 13 лет, мы немедленно удалим её.</p>
+            </section>
+
+            <!-- Section 7 -->
+            <section id="section-7">
+                <h2>7. Развлекательные цели</h2>
+                
+                <div class="callout callout-warning">
+                    <div class="callout-title">
+                        <svg class="contact-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                        </svg>
+                        Важное уведомление
+                    </div>
+                    <p style="margin: 0;">
+                        SOS Dates разработано и предоставляется <strong>только в развлекательных целях</strong> (симулированные свидания). Приложение:
+                    </p>
+                    <ul style="margin-top: 12px; margin-bottom: 0;">
+                        <li>❌ <strong>Не</strong> совершает реальные телефонные звонки</li>
+                        <li>❌ <strong>Не</strong> подключается к телефонным сетям</li>
+                        <li>❌ <strong>Не</strong> заменяет службы экстренной связи</li>
+                        <li>❌ <strong>Не должно</strong> использоваться для обмана или мошенничества</li>
+                    </ul>
+                </div>
+                <p style="margin-top: 16px;">
+                    Пользователи несут ответственность за использование Приложения в соответствии с применимыми законами и нормативными актами.
+                </p>
+            </section>
+
+            <!-- Section 8 -->
+            <section id="section-8">
+                <h2>8. Изменения в Политике конфиденциальности</h2>
+                <p>
+                    Мы можем время от времени обновлять эту Политику конфиденциальности. Мы уведомим вас об любых изменениях путем:
+                </p>
+                <ul>
+                    <li>Размещения новой Политики конфиденциальности в Приложении</li>
+                    <li>Обновления даты «Последнее обновление»</li>
+                    <li>Для существенных изменений — предоставления уведомления в Приложении</li>
+                </ul>
+                <p>Вам рекомендуется периодически проверять эту страницу на предмет любых изменений.</p>
+            </section>
+
+            <!-- Section 9 -->
+            <section id="section-9">
+                <h2>9. Контакты</h2>
+                <p>Если у вас есть вопросы об этой Политике конфиденциальности, пожалуйста, свяжитесь с нами:</p>
+
+                <div class="footer">
+                    <div class="footer-content">
+                        <h3>Свяжитесь с нами</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <svg class="contact-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                </svg>
+                                <span>Email: <a href="mailto:support@sosdates.app">support@sosdates.app</a></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Smooth scroll for TOC links
+        document.querySelectorAll('.toc-list a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    const headerOffset = 80;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Highlight active section in TOC
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const tocLinks = document.querySelectorAll('.toc-list a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.style.borderLeftColor = 'transparent';
+                link.style.background = 'transparent';
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.style.borderLeftColor = 'var(--color-primary)';
+                    link.style.background = 'var(--color-callout-bg)';
+                    link.style.marginLeft = '-12px';
+                    link.style.paddingLeft = '12px';
+                    link.style.borderRadius = '0 8px 8px 0';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
